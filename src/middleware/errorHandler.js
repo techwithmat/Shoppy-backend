@@ -2,7 +2,7 @@ const ERROR_HANDLERS = {
   ValidationError: () => {
     return {
       status: 400,
-      message: 'Failed to validate request, title must be unique'
+      message: 'Failed to validate request'
     }
   },
   DefaultError: () => {

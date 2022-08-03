@@ -3,16 +3,30 @@ import mongooseUniqueValidator from 'mongoose-unique-validator'
 const { model, Schema } = moongose
 
 const ProductSchema = new Schema({
-  title: {
+  name: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
-  price: Number,
-  description: String,
-  images: Array,
-  categories: Array,
-  stock: Number
+  price: {
+    type: Number,
+    required: true
+  },
+  description: {
+    type: String,
+    required: true
+  },
+  images: {
+    type: Array,
+    required: true
+  },
+  category: {
+    type: String,
+    required: true
+  },
+  stock: {
+    type: Number,
+    required: true
+  }
 })
 
 ProductSchema.set('toJSON', {
