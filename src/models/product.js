@@ -1,5 +1,6 @@
 import moongose from 'mongoose'
 import mongooseUniqueValidator from 'mongoose-unique-validator'
+
 const { model, Schema } = moongose
 
 const ProductSchema = new Schema({
@@ -11,8 +12,8 @@ const ProductSchema = new Schema({
     type: Number,
     required: true
   },
-  description: {
-    type: String,
+  characteristics: {
+    type: Array,
     required: true
   },
   images: {

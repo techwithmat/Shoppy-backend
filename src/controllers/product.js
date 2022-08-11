@@ -1,41 +1,92 @@
 import { Router } from 'express'
-import Product from '../models/product.js'
+import Product from '#Models/product.js'
+import isValidId from '#Utils/isValidId.js'
 
 const productRouter = Router()
 
-productRouter.get('/', async (req, res, next) => {
-  try {
-    const products = await Product.find({})
+/**
+ * @api {get} /products Get all products
+ * @apiParam {Number} [limit] Limit the number of products returned
+ * @apiParam {Number} [page] Page number
+*/
 
-    return res.status(200).json(products)
+productRouter.get('/', async (req, res, next) => {
+  let { limit, page } = req.query
+
+  limit = parseInt(limit) || 10
+  page = parseInt(page) || 1
+
+  try {
+    const startIndex = (page - 1) * limit
+    const totalPages = Math.ceil(await Product.countDocuments() / limit)
+
+    const products = await Product.find({})
+      .limit(limit)
+      .skip(startIndex)
+
+    return res.status(200).json({
+      page,
+      totalPages,
+      result: products
+    })
   } catch (error) {
     next(error)
   }
 })
+
+/**
+ * @api {get} /products/search Search products
+ * @apiParam {String} [q] Search query
+ * @apiParam {Number} [limit] Limit the number of products returned
+ * @apiParam {Number} [page] Page number
+ * @apiParam {Category} [category] Category to search in
+*/
 
 productRouter.get('/search', async (req, res, next) => {
-  const { page, category, q, price } = req.query
-  const pageNumber = parseInt(page) || 1
+  let { q, limit, page, category } = req.query
 
-  const query = {
-    name: { $regex: q || '', $options: 'i' },
-    price: { $lte: parseInt(price) || 1000 },
-    category: { $regex: category || '', $options: 'i' }
-  }
+  limit = parseInt(limit) || 10
+  page = parseInt(page) || 1
+  q = q || ''
+  category = category || ''
 
   try {
-    const products = await Product.find(query)
-      .skip((pageNumber - 1) * 10)
-      .limit(10)
+    const startIndex = (page - 1) * limit
+    const totalPages = Math.ceil(await Product.countDocuments({
+      name: { $regex: q, $options: 'i' },
+      category: { $regex: category, $options: 'i' }
+    }) / limit)
 
-    return res.status(200).json(products)
+    const products = await Product.find({
+      name: { $regex: q, $options: 'i' },
+      category: { $regex: category, $options: 'i' }
+    })
+      .limit(limit)
+      .skip(startIndex)
+
+    return res.status(200).json({
+      page,
+      totalPages,
+      result: products
+    })
   } catch (error) {
     next(error)
   }
 })
+
+/**
+ * @api {get} /products/:id Get product by id
+ * @apiParam {String} id Product id
+*/
 
 productRouter.get('/:id', async (req, res, next) => {
   const { id } = req.params
+
+  if (!id || !isValidId(id)) {
+    return res.status(400).json({
+      message: 'Invalid id'
+    })
+  }
 
   try {
     const product = await Product.findById(id)
@@ -50,15 +101,35 @@ productRouter.get('/:id', async (req, res, next) => {
   }
 })
 
-productRouter.patch('/', async (req, res, next) => {
-  const { body } = req
+/**
+ * @api {post} /products Create a new product
+ * @apiParam {String} name Product name
+ * @apiParam {Array of Strings} characteristics Product characteristics
+ * @apiParam {Number} price Product price
+ * @apiParam {Array of Strings} images Product images
+ * @apiParam {String} category Product category
+ * @apiParam {Number} stock Product stock
+*/
 
-  if (Object.keys(body).length !== 6) {
-    return res.status(400).json({ message: 'Missing required fields' })
+productRouter.patch('/', async (req, res, next) => {
+  const { name, price, characteristics, images, category, stock } = req.body
+
+  if (!name || !price || !characteristics || !images || !category || !stock) {
+    return res.status(400).json({
+      message: 'Missing required fields'
+    })
   }
 
   try {
-    const product = new Product(body)
+    const product = new Product({
+      name,
+      price,
+      characteristics,
+      images,
+      category,
+      stock
+    })
+
     const productSaved = await product.save()
 
     return res.status(201).json({
@@ -70,8 +141,43 @@ productRouter.patch('/', async (req, res, next) => {
   }
 })
 
+/**
+ * @api {patch} /products/:id Update a product
+ * @apiParam {String} id Product id
+ * @apiBody {properties} Product properties to update
+*/
+
+productRouter.patch('/:id', async (req, res, next) => {
+  const { id } = req.params
+  const { body } = req
+
+  if (!id || !isValidId(id)) {
+    return res.status(400).json({ message: 'Invalid id' })
+  }
+
+  try {
+    const product = await Product.findByIdAndUpdate(id, body)
+
+    res.json({
+      message: 'Product updated',
+      product
+    })
+  } catch (error) {
+    next(error)
+  }
+})
+
+/**
+ * @api {delete} /products/:id Delete a product
+ * @apiParam {String} id Product id
+*/
+
 productRouter.delete('/:id', async (req, res, next) => {
   const { id } = req.params
+
+  if (!id || !isValidId(id)) {
+    return res.status(400).json({ message: 'Invalid id' })
+  }
 
   try {
     const product = await Product.findByIdAndDelete(id)

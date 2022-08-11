@@ -1,15 +1,9 @@
 import 'dotenv/config'
 import express from 'express'
 import cors from 'cors'
-
-// Database
 import connect from './db.js'
-
-// Routes
-import apiRouter from './controllers/api.js'
-
-// Middleware
-import errorHandler from './middleware/errorHandler.js'
+import apiRouter from '#Controllers/api.js'
+import errorHandler from '#Middlewares/errorHandler.js'
 
 console.clear()
 
