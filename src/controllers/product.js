@@ -67,6 +67,8 @@ productRouter.get('/search', async (req, res, next) => {
     return res.status(200).json({
       page,
       totalPages,
+      previusPage: (page - 1) > 0 ? (page - 1) : null,
+      nextPage: (page < totalPages) ? page + 1 : null,
       result: products
     })
   } catch (error) {
@@ -111,7 +113,7 @@ productRouter.get('/:id', async (req, res, next) => {
  * @apiParam {Number} stock Product stock
 */
 
-productRouter.patch('/', async (req, res, next) => {
+productRouter.post('/', async (req, res, next) => {
   const { name, price, characteristics, images, category, stock } = req.body
 
   if (!name || !price || !characteristics || !images || !category || !stock) {
