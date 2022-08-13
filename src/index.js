@@ -1,22 +1,17 @@
 import 'dotenv/config'
-import express from 'express'
-import cors from 'cors'
-import connect from './db.js'
-import apiRouter from '#Controllers/api.js'
-import errorHandler from '#Middlewares/errorHandler.js'
+import httpServer from '#Config/http.js'
+import connectDB from '#Config/db.js'
 
 console.clear()
 
-const PORT = process.env.PORT || 3010
-const app = express()
+const { MONGODB_URL, MONGODB_URL_TEST, PORT, NODE_ENV } = process.env
 
-app.use(cors())
-app.use(express.json())
-app.use('/api', apiRouter)
-app.use(errorHandler)
+export const bootstrap = async () => {
+  await connectDB(NODE_ENV === 'test' ? MONGODB_URL_TEST : MONGODB_URL)
 
-connect()
+  httpServer.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`)
+  })
+}
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`)
-})
+bootstrap()

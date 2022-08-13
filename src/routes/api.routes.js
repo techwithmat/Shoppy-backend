@@ -1,5 +1,6 @@
 import { Router } from 'express'
-import productRouter from './product.js'
+// import productRouter from '#Controllers/product.js'
+import productRouter from '#Routes/product.routes.js'
 
 const apiRouter = Router()
 
