@@ -8,7 +8,8 @@
     "dev": "nodemon src/index.js",
     "lint": "standard --fix",
     "prepare": "husky install",
-    "test": "cross-env NODE_ENV=test jest"
+    "test": "cross-env NODE_ENV=test jest",
+    "start": "node src/index.js"
   },
   "author": "Mateo2131",
   "license": "MIT",
@@ -77,5 +78,8 @@
     "*.js": [
       "standard --fix"
     ]
+  },
+  "engines": {
+    "node": "16.14.0"
   }
 }
