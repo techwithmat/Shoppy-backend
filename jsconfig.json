@@ -9,7 +9,8 @@
       "#Utils/*": ["./src/utils/*"],
       "#Middlewares/*": ["./src/middlewares/*"],
       "#Config/*": ["./src/config/*"],
-      "#Routes/*": ["./src/routes/*"]
+      "#Routes/*": ["./src/routes/*"],
+      "#DTO/*": ["./src/dto/*"]
     }
   }
 }

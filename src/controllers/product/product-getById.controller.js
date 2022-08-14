@@ -1,5 +1,4 @@
 import Product from '#Models/product.model.js'
-import isValidId from '#Utils/isValidId.js'
 
 /**
  * @api {get} /products/:id Get product by id
@@ -8,12 +7,6 @@ import isValidId from '#Utils/isValidId.js'
 
 const productGetByIdController = async (req, res, next) => {
   const { id } = req.params
-
-  if (!id || !isValidId(id)) {
-    return res.status(400).json({
-      message: 'Invalid id'
-    })
-  }
 
   try {
     const product = await Product.findById(id)

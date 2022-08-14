@@ -13,12 +13,6 @@ import Product from '#Models/product.model.js'
 const productCreateController = async (req, res, next) => {
   const { name, price, characteristics, images, category, stock } = req.body
 
-  if (!name || !price || !characteristics || !images || !category || !stock) {
-    return res.status(400).json({
-      message: 'Missing required fields'
-    })
-  }
-
   try {
     const product = new Product({
       name,
