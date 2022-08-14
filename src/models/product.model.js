@@ -1,5 +1,4 @@
 import moongose from 'mongoose'
-import mongooseUniqueValidator from 'mongoose-unique-validator'
 
 const { model, Schema } = moongose
 
@@ -37,8 +36,6 @@ ProductSchema.set('toJSON', {
     delete ret.__v
   }
 })
-
-ProductSchema.plugin(mongooseUniqueValidator)
 
 const Product = model('Product', ProductSchema)
 

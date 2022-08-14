@@ -1,6 +1,6 @@
 # Ecommerce REST-API
 
-This is the backend of the project [Ecommerce](https://github.com/Mateo2131/Ecommerce). It is a REST-API that allows you to manage your ecommerce.
+Backend of the project [Ecommerce](https://github.com/Mateo2131/Ecommerce).
 
 ## 🦾 Technologies 
 
@@ -34,12 +34,6 @@ This is the backend of the project [Ecommerce](https://github.com/Mateo2131/Ecom
    ```sh
    npm dev
    ```
-## 📚 Documentation
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
 ## 📝 Features
 
 * Users can login and logout.
@@ -50,12 +44,12 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 ## ⚙️ Roadmap
 
-- [ ] Add authentication
+- [X] Add authentication
 - [ ] Add cart functionality
 - [ ] Add checkout functionality
 
 
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/Mateo2131/Ecommerce-backend/issues) for a full list of proposed features (and known issues).
 
 ## ⭐️ Show your support
 

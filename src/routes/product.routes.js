@@ -7,8 +7,7 @@ import {
   productUpdateController,
   productDeleteController
 } from '#Controllers/product/index.js'
-import productCreateDTO from '#DTO/product-create.dto.js'
-import validateProductId from '#DTO/product-id.dto.js'
+import { productCreateDTO, validateProductId } from '#DTO/index.js'
 
 const productRouter = Router()
 
