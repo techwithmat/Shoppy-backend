@@ -1,6 +1,6 @@
-# Ecommerce REST-API
+# Shoppy backend
 
-Backend of the project [Ecommerce](https://github.com/Mateo2131/Ecommerce).
+Backend of the project [Shoppy](https://github.com/Mateo2131/Shoppy).
 
 ## 🦾 Technologies 
 
@@ -32,7 +32,7 @@ Backend of the project [Ecommerce](https://github.com/Mateo2131/Ecommerce).
 3. Run the server
 
    ```sh
-   npm dev
+   npm run dev
    ```
 ## 📝 Features
 
@@ -49,7 +49,7 @@ Backend of the project [Ecommerce](https://github.com/Mateo2131/Ecommerce).
 - [ ] Add checkout functionality
 
 
-See the [open issues](https://github.com/Mateo2131/Ecommerce-backend/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/Mateo2131/Shoppy-backend/issues) for a full list of proposed features (and known issues).
 
 ## ⭐️ Show your support
 
