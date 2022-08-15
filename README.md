@@ -13,7 +13,7 @@ Backend of the project [Shoppy](https://github.com/Mateo2131/Shoppy).
 1. Clone the repository and install the dependencies.
 
    ```sh
-   git clone https://github.com/Mateo2131/Ecommerce-backend.git
+   git clone https://github.com/Mateo2131/Shoppy-backend.git
    npm install
    ```
 
